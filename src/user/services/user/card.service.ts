@@ -16,8 +16,13 @@ export default class CardUserService {
       console.log(result);
 
       const FinalReturn = {
-        ...result,
+        name: result?.name,
+        group: result?.class.name,
+        dateOfBirth: result?.dateOfBirth,
         link: `http://localhost:${5173}/card/public/${result?.id}`,
+        course: result?.class.Couser.name,
+        photo: result?.photoFile,
+        lunch: result?.class.lunch,
       };
       return {
         statusCode: 200,
