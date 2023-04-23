@@ -31,6 +31,7 @@ export default class CreateUserService {
   }
 
   async create(user: UserDTO): Promise<ResponseServer<any>> {
+    
     try {
       this.validate(user);
       const existClassRoom = await this.classRoomRepos.findById(user.classId);
@@ -53,6 +54,8 @@ export default class CreateUserService {
         isActived: true,
         classId: user.classId,
       };
+    console.log();
+
       const newUser = await this.userRepos.create(inputUser);
 
       const payLoad = {
