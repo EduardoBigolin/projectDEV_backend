@@ -1,4 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { HASH } from "./src/utils/hash";
+import { password } from "promptly";
+import ClassRoomPrismaRepos from "./src/classrooms/repositories/ClassRoom.prisma";
+import UserPrismaRepos from "./src/user/repositories/user.prisma";
+import CreateAdminService from "./src/user/services/admin/create.service";
 
 const prisma = new PrismaClient();
 
@@ -29,24 +34,26 @@ async function main() {
         couserId: Course.id,
       },
     });
+    ClassRoom.id;
 
-    const Admin = await prisma.user.create({
-      data: {
-        name: "ADMIN",
-        email: "ADMIN@ADMIN.COM",
-        password: "ADMIN",
-        photoFile: "ADMIN",
-        dateOfBirth: "2021-01-01",
-        isAdmin: true,
-        isActived: true,
-        classId: ClassRoom.id,
-      },
+    const CreateUserService = new CreateAdminService(
+      new UserPrismaRepos(),
+      new ClassRoomPrismaRepos()
+    ).create({
+      name: "ADMIN",
+      email: "ADMIN@ADMIN.COM",
+      password: "ADMIN",
+      photoFile: "ADMIN",
+      dateOfBirth: "2021-01-01",
+      isAdmin: true,
+      isActived: true,
+      classId: ClassRoom.id,
     });
 
     console.log(
       `
     User Created with success,
-    Your credential for login is  email: ${Admin.email} and your register
+    Your credential for login is  email: ${CreateUserService} and your register
     `
     );
   } catch (error: any) {

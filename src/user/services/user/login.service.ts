@@ -17,10 +17,16 @@ export default class LoginUserService {
       if (!existEmail) {
         throw new Error("Email not found");
       }
-      const isPassword = await HASH.compare(data.password, existEmail.password);
+
+      const isPassword = await HASH.compare(
+        data.password,
+        existEmail.password as string
+      );
+
       if (!isPassword) {
         throw new Error("Password incorrect");
       }
+
       const payLoad = {
         id: existEmail.id,
         name: existEmail.name,

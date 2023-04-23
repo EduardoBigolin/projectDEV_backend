@@ -5,6 +5,7 @@ import CreateAdminService from "../../user/services/admin/create.service";
 import ClassRoomPrismaRepos from "../../classrooms/repositories/ClassRoom.prisma";
 // const { PrismaClient } = require("@prisma/client");
 import { PrismaClient } from "@prisma/client";
+import { HASH } from "../../utils/hash";
 
 const prisma = new PrismaClient();
 // Instanciar o PrismaClient
@@ -40,7 +41,7 @@ resposta.then(async (answers) => {
       data: {
         name: answers.nome,
         email: answers.email,
-        password: answers.senha as string,
+        password: await HASH.create(answers.senha as string, 10),
         photoFile: "ADMIN",
         dateOfBirth: answers.dataDeAniversario,
         isAdmin: true,
