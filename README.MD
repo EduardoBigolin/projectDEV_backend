@@ -2,7 +2,8 @@
 
 for run this project 🚀:
 
-<code>
-npm install 
-npm run dev 
-</code>
+Rodar em Ordem:
+RUN MIGRATE: <code> npm run seeds </code>
+RUN Seeds: <code> npm run seeds </code>
+Criar ADM: <code> npm run cli </code>
+RUN SERVER: <code> npm run dev </code>
