@@ -1,3 +1,4 @@
+import { log } from "console";
 import ClassRoomPrismaRepos from "./src/classrooms/repositories/ClassRoom.prisma";
 import CoursePrismaRepos from "./src/classrooms/repositories/Course.prisma";
 import EducationLevelPrismaRepos from "./src/classrooms/repositories/educationLevel.prisma";
@@ -25,7 +26,7 @@ const seeds = async () => {
     const classRoom = await classRoomPrismaRepos.createClassRoom({
       name: "2º ANO",
       couserId: course.id as any,
-      lunch: JSON.stringify(["SEGUNDA", "TERÇA", "QUARTA", "QUINTA", "SEXTA"]),
+      lunch: JSON.stringify(["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]),
     });
 
     const service = new CreateUserService(UserRepos, classRoomRepos);
@@ -41,6 +42,8 @@ const seeds = async () => {
       classId: classRoom.couserId,
     });
     console.log(response.body);
-  } catch (error: any) {}
+  } catch (error: any) {
+    console.log(error)
+  }
 };
 seeds();

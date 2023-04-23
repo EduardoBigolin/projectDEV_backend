@@ -18,7 +18,7 @@ model EducationLevel {
 model Couser {
   id               String         @id @default(uuid())
   name             String         @unique
-  educationLevel   EducationLevel @relation(fields: [educationLevelId], references: [id])
+  educationLevel   EducationLevel @relation(fields: [educationLevelId], references: [id],  onDelete: Cascade)
   educationLevelId String
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
@@ -30,7 +30,7 @@ model ClassRoom {
   name      String   @unique
   lunch     String
   couserId  String
-  Couser    Couser   @relation(fields: [couserId], references: [id])
+  Couser    Couser   @relation(fields: [couserId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User[]
@@ -45,7 +45,7 @@ model User {
   isAdmin     Boolean
   isActived   Boolean
   photoFile   String
-  class       ClassRoom @relation(fields: [classId], references: [id])
+  class       ClassRoom @relation(fields: [classId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   classId     String

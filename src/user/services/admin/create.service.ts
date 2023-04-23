@@ -49,7 +49,7 @@ export default class CreateAdminService {
         email: user.email,
         password: await HASH.create(user.password, 10),
         photoFile: user.photoFile,
-        dateOfBirth: user.dateOfBirth,
+        dateOfBirth: new Date(Date.now()),
         isAdmin: user.isAdmin,
         isActived: true,
         classId: user.classId,

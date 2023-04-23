@@ -57,6 +57,7 @@ export default class CoursePrismaRepos implements CourseRepos {
       },
       data: {
         name: Course.name,
+        educationLevelId: Course.educationLevelId
       },
     });
     return result;

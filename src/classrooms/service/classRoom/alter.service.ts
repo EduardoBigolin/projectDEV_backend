@@ -30,17 +30,9 @@ export default class AlterClassRoomService {
   }
 
   public async alter(data: ClassRoomDTO): Promise<ResponseServer<any>> {
-    console.log(data);
-
     try {
       this.validateData(data);
-      const existClassRoom = await this.repos.getClassRoomsByName(
-        data.name as string
-      );
 
-      if (existClassRoom) {
-        throw new Error("ClassRoom already exists");
-      }
       const existCourse = await this.reposCourse.getCourse(data.couserId);
       if (!existCourse) {
         throw new Error("Course not found");

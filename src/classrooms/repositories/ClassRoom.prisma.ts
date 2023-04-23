@@ -48,13 +48,21 @@ export default class ClassRoomPrismaRepos implements ClassRoomRepos {
     });
     return result;
   }
-  async getClassRooms(): Promise<ClassRoomDTO[]> {
+  async getClassRooms(): Promise<ClassRoomDTO[] | any> {
     const result = await prisma.classRoom.findMany({
       include: {
         Couser: true,
       },
     });
-    return result;
+
+    const final = result.map((e) => ({
+      id: e.id,
+      name: e.name,
+      course: e.Couser.name,
+      courseId: e.couserId,
+      lunch: JSON.parse(e.lunch),
+    }));
+    return final;
   }
   async updateClassRoom(ClassRoom: ClassRoomDTO): Promise<ClassRoomDTO> {
     const result = await prisma.classRoom.update({
@@ -64,7 +72,7 @@ export default class ClassRoomPrismaRepos implements ClassRoomRepos {
       data: {
         name: ClassRoom.name,
         couserId: ClassRoom.couserId,
-        lunch: ClassRoom.lunch,
+        lunch: JSON.stringify(ClassRoom.lunch),
       },
     });
 

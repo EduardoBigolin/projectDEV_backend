@@ -27,12 +27,13 @@ export default class AlterCourseService {
 
   public async alter(data: CourseDTO): Promise<ResponseServer<any>> {
     try {
+      
       this.validateData(data);
       const exist = await this.repos.getCourse(data.id as string);
       if (!exist) {
         throw new Error("Course not found");
       }
-
+      
       const returnValue = await this.repos.updateCourse(data);
 
       return {
