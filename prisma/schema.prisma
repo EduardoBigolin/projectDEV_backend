@@ -18,7 +18,7 @@ model EducationLevel {
 model Couser {
   id               String         @id @default(uuid())
   name             String         @unique
-  educationLevel   EducationLevel @relation(fields: [educationLevelId], references: [id],  onDelete: Cascade)
+  educationLevel   EducationLevel @relation(fields: [educationLevelId], references: [id], onDelete: Cascade)
   educationLevelId String
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
@@ -41,7 +41,7 @@ model User {
   name        String
   email       String    @unique
   password    String
-  dateOfBirth DateTime
+  dateOfBirth String
   isAdmin     Boolean
   isActived   Boolean
   photoFile   String

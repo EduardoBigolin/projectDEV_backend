@@ -11,9 +11,6 @@ export default class AlterUserService {
     if (!user.email) {
       throw new Error("Email is required");
     }
-    if (!user.password) {
-      throw new Error("Password is required");
-    }
     if (!user.dateOfBirth) {
       throw new Error("Date of birth is required");
     }

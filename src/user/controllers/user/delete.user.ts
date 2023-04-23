@@ -5,7 +5,9 @@ import DeleteUserService from "../../services/user/delete.service";
 export default class DeleteUser {
   public static async delete(req: Request, res: Response) {
     if (!req.user.isAdmin) {
-      res.status(400).json({ message: "unauthorized for this function" });
+      return res
+        .status(400)
+        .json({ message: "unauthorized for this function" });
     }
     const { id } = req.params;
 

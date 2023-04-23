@@ -13,7 +13,6 @@ export default class CardUserService {
     try {
       this.validate(id);
       const result = await this.repos.findByCard(id);
-      console.log(result);
 
       const FinalReturn = {
         name: result?.name,

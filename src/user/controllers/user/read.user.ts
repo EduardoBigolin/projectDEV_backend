@@ -5,7 +5,9 @@ import ReadUserService from "../../services/user/read.service";
 export default class ReadUser {
   public static async unique(req: Request, res: Response) {
     if (!req.user.isAdmin) {
-      res.status(400).json({ message: "unauthorized for this function" });
+      return res
+        .status(400)
+        .json({ message: "unauthorized for this function" });
     }
     const { id } = req.params;
 

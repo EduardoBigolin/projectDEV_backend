@@ -47,9 +47,9 @@ export default class CreateAdminService {
       const inputUser: UserDTO = {
         name: user.name,
         email: user.email,
-        password: await HASH.create(user.password, 10),
+        password: await HASH.create(user.password as string, 10),
         photoFile: user.photoFile,
-        dateOfBirth: new Date(Date.now()),
+        dateOfBirth: user.dateOfBirth,
         isAdmin: user.isAdmin,
         isActived: true,
         classId: user.classId,

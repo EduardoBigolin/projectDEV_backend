@@ -6,9 +6,11 @@ import ClassRoomPrismaRepos from "../../../classrooms/repositories/ClassRoom.pri
 export default class CreateUser {
   public static async create(req: Request, res: Response) {
     if (!req.user.isAdmin) {
-      res.status(400).json({ message: "unauthorized for this function" });
+      return res
+        .status(400)
+        .json({ message: "unauthorized for this function" });
     }
-    const { name, dateOfBirth, email, password, photoFile, classId } = req.body;
+    const { name, dateOfBirth, email, password, classId } = req.body;
     const file = {
       file: req.file?.buffer,
       filename: req.file?.originalname,
@@ -21,7 +23,7 @@ export default class CreateUser {
     const response = await service.create({
       isActived: true,
       name,
-      dateOfBirth: new Date(Date.now()),
+      dateOfBirth,
       email,
       password,
       photoFile: file.file?.toString("base64"),

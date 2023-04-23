@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export default class UserPrismaRepos implements UserRepos {
   async findByCard(id: string): Promise<UserDTO | null> {
-    return await prisma.user.findUnique({
+    const data = await prisma.user.findUnique({
       where: {
         id,
       },
@@ -22,13 +22,25 @@ export default class UserPrismaRepos implements UserRepos {
         },
       },
     });
+
+    const finalData: any = {
+      ...data,
+      class: {
+        ...data?.class,
+        lunch: JSON.parse(data?.class.lunch as string),
+      },
+    };
+
+    return finalData;
   }
   async create(data: UserDTO): Promise<UserDTO> {
+    console.log(data);
+
     return await prisma.user.create({
       data: {
         name: data.name,
         email: data.email,
-        password: data.password,
+        password: data.password as string,
         photoFile: data.photoFile as string,
         dateOfBirth: data.dateOfBirth,
         isAdmin: data.isAdmin as boolean,
@@ -45,7 +57,6 @@ export default class UserPrismaRepos implements UserRepos {
       data: {
         name: data.name,
         email: data.email,
-        password: data.password,
         dateOfBirth: data.dateOfBirth,
         isAdmin: data.isAdmin,
         isActived: true,

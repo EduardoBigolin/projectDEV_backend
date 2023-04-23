@@ -10,7 +10,7 @@ import Auth from "../../infra/middleware/auth";
 const ClassRoomRoutes = Router();
 
 // EDUCATION LEVEL ROUTES
-ClassRoomRoutes.get("/", Auth, ReadClassRoom.all)
+ClassRoomRoutes.get("/", ReadClassRoom.all)
   .get("/:id", Auth, ReadClassRoom.unique)
   .post("/create/", Auth, createClassRoom.create)
   .put("/alter/:id", Auth, AlterClassRoom.alter)
